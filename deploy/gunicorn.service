@@ -1,0 +1,21 @@
+[Unit]
+Description=Gunicorn daemon for kutahyaaricilarbirligi
+After=network.target
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/kutahyaaricilarbirligi
+ExecStart=/var/www/kutahyaaricilarbirligi/venv/bin/gunicorn \
+    --access-logfile - \
+    --workers 3 \
+    --bind 127.0.0.1:8000 \
+    --timeout 120 \
+    kutahyaaricilarbirligi.wsgi:application
+
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
+

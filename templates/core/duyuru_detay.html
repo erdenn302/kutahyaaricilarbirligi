@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <article>
+                <h1 class="mb-3">{{ duyuru.baslik }}</h1>
+                <p class="text-muted mb-4">
+                    <i class="bi bi-calendar"></i> {{ duyuru.yayin_tarihi|date:"d F Y, l" }}
+                </p>
+                {% if duyuru.resim %}
+                <img src="{{ duyuru.resim.url }}" alt="{{ duyuru.baslik }}" class="img-fluid rounded mb-4">
+                {% endif %}
+                <div class="content">
+                    {{ duyuru.icerik|safe }}
+                </div>
+            </article>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Diğer Duyurular</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for diger in diger_duyurular %}
+                    <a href="{% url 'duyuru_detay' diger.slug %}" class="list-group-item list-group-item-action">
+                        <h6 class="mb-1">{{ diger.baslik }}</h6>
+                        <small class="text-muted">{{ diger.yayin_tarihi|date:"d F Y" }}</small>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

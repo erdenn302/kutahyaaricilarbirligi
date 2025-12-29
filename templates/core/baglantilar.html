@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="py-5 logo-pattern-bg">
+    <div class="container">
+        <h1 class="section-title mb-4">Bağlantılar</h1>
+        
+        {% if baglantilar %}
+        <div class="row g-4">
+        {% for baglanti in baglantilar %}
+        <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm text-center">
+                {% if baglanti.logo %}
+                <div class="card-body d-flex flex-column align-items-center">
+                    <img src="{{ baglanti.logo.url }}" alt="{{ baglanti.baslik }}" class="mb-3" style="max-height: 100px; max-width: 100%; object-fit: contain;">
+                {% else %}
+                <div class="card-body d-flex flex-column">
+                {% endif %}
+                    <h5 class="card-title">{{ baglanti.baslik }}</h5>
+                    {% if baglanti.aciklama %}
+                    <p class="card-text text-muted small">{{ baglanti.aciklama }}</p>
+                    {% endif %}
+                    <a href="{{ baglanti.url }}" 
+                       class="btn btn-warning mt-auto" 
+                       {% if baglanti.yeni_sekmede_ac %}target="_blank" rel="noopener noreferrer"{% endif %}>
+                        Siteyi Ziyaret Et
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+        {% else %}
+        <div class="alert alert-info text-center py-5">
+            <i class="bi bi-info-circle" style="font-size: 3rem;"></i>
+            <h4 class="mt-3">Henüz bağlantı eklenmemiştir</h4>
+            <p class="mb-0">Yakında bağlantılar eklenecektir.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+

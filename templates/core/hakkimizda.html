@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<section class="py-5 logo-pattern-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+            <h1 class="mb-4">{{ hakkimizda.baslik }}</h1>
+            {% if hakkimizda.resim %}
+            <img src="{{ hakkimizda.resim.url }}" alt="{{ hakkimizda.baslik }}" class="img-fluid rounded mb-4">
+            {% endif %}
+            <div class="content">
+                {{ hakkimizda.icerik|safe }}
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</section>
+{% endblock %}
+

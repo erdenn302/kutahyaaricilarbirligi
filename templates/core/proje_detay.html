@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <article>
+                <h1 class="mb-3">{{ proje.baslik }}</h1>
+                {% if proje.baslangic_tarihi %}
+                <p class="text-muted mb-4">
+                    <i class="bi bi-calendar"></i> 
+                    {{ proje.baslangic_tarihi|date:"d F Y" }}
+                    {% if proje.bitis_tarihi %} - {{ proje.bitis_tarihi|date:"d F Y" }}{% endif %}
+                </p>
+                {% endif %}
+                {% if proje.resim %}
+                <img src="{{ proje.resim.url }}" alt="{{ proje.baslik }}" class="img-fluid rounded mb-4">
+                {% endif %}
+                <div class="content">
+                    {{ proje.icerik|safe }}
+                </div>
+            </article>
+        </div>
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Diğer Projeler</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for diger in diger_projeler %}
+                    <a href="{% url 'proje_detay' diger.slug %}" class="list-group-item list-group-item-action">
+                        <h6 class="mb-1">{{ diger.baslik }}</h6>
+                        {% if diger.baslangic_tarihi %}
+                        <small class="text-muted">{{ diger.baslangic_tarihi|date:"d F Y" }}</small>
+                        {% endif %}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

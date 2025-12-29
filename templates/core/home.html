@@ -1,0 +1,328 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title|default:"Kütahya Arı Yetiştiricileri Birliği" }}{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section honeycomb-bg">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 position-relative">
+                <h1 class="hero-title fade-in-up">
+                    Kütahya Arı Yetiştiricileri Birliği
+                </h1>
+                <p class="hero-subtitle fade-in-up">
+                    Kütahya'da arı ve arıcıların güçlü sesi. Arıcılarımızın haklarını korumak,
+                    arıcılığı geliştirmek ve sürdürülebilir bal üretimini desteklemek için çalışıyoruz.
+                </p>
+                <div class="d-flex flex-wrap gap-3 fade-in-up">
+                    <a href="{% url 'hakkimizda' %}" class="btn btn-warning btn-lg" data-bs-toggle="tooltip" data-bs-placement="top" title="Birlik hakkında detaylı bilgi">
+                        <i class="bi bi-info-circle"></i> Hakkımızda
+                    </a>
+                    <a href="{% url 'haberler' %}" class="btn btn-outline-warning btn-lg" data-bs-toggle="tooltip" data-bs-placement="top" title="Güncel haberler ve duyurular">
+                        <i class="bi bi-newspaper"></i> Haberler & Duyurular
+                    </a>
+                    <button class="btn btn-outline-dark btn-lg" data-bs-toggle="modal" data-bs-target="#aricilikTakvimiModal" title="Arıcılık takvimini görüntüle">
+                        <i class="bi bi-calendar-event"></i> Takvim
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-5 mt-4 mt-lg-0 position-relative">
+                <div class="row g-3">
+                    <div class="col-12">
+                        <div class="card border-0 shadow-lg fade-in-up bg-gradient-warning text-white">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center justify-content-between mb-3">
+                                    <div>
+                                        <h5 class="fw-bold mb-1">Birlik Üyeliği</h5>
+                                        <p class="small mb-0 opacity-75">Hemen üye olun</p>
+                                    </div>
+                                    <i class="bi bi-people-fill" style="font-size: 3rem; opacity: 0.3;"></i>
+                                </div>
+                                <p class="mb-3">
+                                    Kütahya Arı Yetiştiricileri Birliği'ne üye olarak arıcılık sektöründeki haklarınızı koruyun, 
+                                    eğitimlere katılın ve desteklerden yararlanın.
+                                </p>
+                                <a href="{% url 'hakkimizda' %}" class="btn btn-light btn-sm">
+                                    <i class="bi bi-info-circle"></i> Daha Fazla Bilgi
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="card border-0 shadow-lg fade-in-up" style="background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);">
+                            <div class="card-body p-4">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="bg-warning rounded-circle p-3 me-3 shadow-sm">
+                                        <i class="bi bi-calendar-check text-dark" style="font-size: 2rem;"></i>
+                                    </div>
+                                    <div>
+                                        <h5 class="fw-bold mb-0 text-dark">Arıcılık Takvimi</h5>
+                                        <p class="text-muted small mb-0">Yıl boyunca yapılacaklar</p>
+                                    </div>
+                                </div>
+                                <p class="text-muted small mb-3">
+                                    Aylara göre arıcılık faaliyetlerini takip edin ve hiçbir işlemi kaçırmayın.
+                                </p>
+                                <div class="d-grid gap-2">
+                                    <button class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#aricilikTakvimiModal">
+                                        <i class="bi bi-calendar-event"></i> Takvimi Görüntüle
+                                    </button>
+                                    <a href="{% url 'aricilik' %}" class="btn btn-outline-warning btn-sm">
+                                        <i class="bi bi-arrow-right"></i> Detaylı Bilgi
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- İstatistikler Bölümü -->
+<section class="stats-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="section-title mb-3">Kütahya Arıcılık İstatistikleri</h2>
+            <p class="text-muted lead">2024 Yılı Güncel Veriler</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card scroll-reveal">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="stat-icon-wrapper bg-warning bg-opacity-10 rounded-circle p-3">
+                            <i class="bi bi-people-fill text-warning" style="font-size: 2rem;"></i>
+                        </div>
+                        <span class="badge bg-success rounded-pill">+5%</span>
+                    </div>
+                    <span class="stat-number" data-target="500">0</span>
+                    <p class="stat-label">Aktif Üye Sayısı</p>
+                    <div class="progress mt-2" style="height: 4px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 85%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card scroll-reveal">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="stat-icon-wrapper bg-warning bg-opacity-10 rounded-circle p-3">
+                            <i class="bi bi-hexagon-fill text-warning" style="font-size: 2rem;"></i>
+                        </div>
+                        <span class="badge bg-success rounded-pill">+12%</span>
+                    </div>
+                    <span class="stat-number" data-target="1200">0</span>
+                    <p class="stat-label">Yıllık Bal Üretimi (Ton)</p>
+                    <div class="progress mt-2" style="height: 4px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 90%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card scroll-reveal">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="stat-icon-wrapper bg-warning bg-opacity-10 rounded-circle p-3">
+                            <i class="bi bi-box text-warning" style="font-size: 2rem;"></i>
+                        </div>
+                        <span class="badge bg-info rounded-pill">+8%</span>
+                    </div>
+                    <span class="stat-number" data-target="8500">0</span>
+                    <p class="stat-label">Arı Kovanı Sayısı</p>
+                    <div class="progress mt-2" style="height: 4px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 75%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+                <div class="stat-card scroll-reveal">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div class="stat-icon-wrapper bg-warning bg-opacity-10 rounded-circle p-3">
+                            <i class="bi bi-building text-warning" style="font-size: 2rem;"></i>
+                        </div>
+                        <span class="badge bg-success rounded-pill">+3%</span>
+                    </div>
+                    <span class="stat-number" data-target="450">0</span>
+                    <p class="stat-label">Arıcılık Yapan İşletme</p>
+                    <div class="progress mt-2" style="height: 4px;">
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: 80%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Haberler ve Duyurular -->
+<section class="py-5 honeycomb-bg">
+    <div class="container">
+        <h2 class="section-title">Güncel Haberler & Duyurular</h2>
+        <div class="row g-4">
+            {% if son_haberler %}
+            <div class="col-lg-6">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-newspaper text-warning" style="font-size: 2rem; margin-right: 15px;"></i>
+                    <h3 class="mb-0">Son Haberler</h3>
+                </div>
+                {% for haber in son_haberler %}
+                <div class="news-card scroll-reveal">
+                    {% if haber.resim %}
+                    <img src="{{ haber.resim.url }}" class="card-img-top" alt="{{ haber.baslik }}" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ haber.baslik }}</h5>
+                        <p class="card-text">{{ haber.ozet|truncatewords:20 }}</p>
+                        <div class="news-date">
+                            <i class="bi bi-calendar"></i> {{ haber.yayin_tarihi|date:"d F Y" }}
+                        </div>
+                        <a href="{% url 'haber_detay' haber.slug %}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-arrow-right"></i> Devamını Oku
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="text-center mt-4">
+                    <a href="{% url 'haberler' %}" class="btn btn-outline-warning">
+                        <i class="bi bi-arrow-right-circle"></i> Tüm Haberler
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% if son_duyurular %}
+            <div class="col-lg-6">
+                <div class="d-flex align-items-center mb-4">
+                    <i class="bi bi-megaphone text-warning" style="font-size: 2rem; margin-right: 15px;"></i>
+                    <h3 class="mb-0">Son Duyurular</h3>
+                </div>
+                {% for duyuru in son_duyurular %}
+                <div class="news-card scroll-reveal" style="border-left: 4px solid #ffc107;">
+                    {% if duyuru.resim %}
+                    <img src="{{ duyuru.resim.url }}" class="card-img-top" alt="{{ duyuru.baslik }}" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ duyuru.baslik }}</h5>
+                        <p class="card-text">{{ duyuru.ozet|truncatewords:20 }}</p>
+                        <div class="news-date">
+                            <i class="bi bi-calendar"></i> {{ duyuru.yayin_tarihi|date:"d F Y" }}
+                        </div>
+                        <a href="{% url 'duyuru_detay' duyuru.slug %}" class="btn btn-warning btn-sm">
+                            <i class="bi bi-arrow-right"></i> Devamını Oku
+                        </a>
+                    </div>
+                </div>
+                {% endfor %}
+                <div class="text-center mt-4">
+                    <a href="{% url 'duyurular' %}" class="btn btn-outline-warning">
+                        <i class="bi bi-arrow-right-circle"></i> Tüm Duyurular
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<!-- Hizmetler Bölümü -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title">Hizmetlerimiz</h2>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="info-card scroll-reveal h-100">
+                    <div class="info-card-icon bg-warning bg-opacity-10 rounded-circle p-4 d-inline-flex align-items-center justify-content-center mb-3">
+                        <i class="bi bi-folder-check text-warning" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Projeler</h5>
+                    <p class="text-muted mb-3">
+                        Arı dostu projeler, üretici destek programları ve kırsal kalkınma projeleri.
+                    </p>
+                    <a href="{% url 'projeler' %}" class="btn btn-warning">
+                        <i class="bi bi-arrow-right"></i> Projeleri Gör
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-card scroll-reveal h-100">
+                    <div class="info-card-icon bg-warning bg-opacity-10 rounded-circle p-4 d-inline-flex align-items-center justify-content-center mb-3">
+                        <i class="bi bi-bee-fill text-warning" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Arıcılık</h5>
+                    <p class="text-muted mb-3">
+                        Arıcılık teknikleri, arı ürünleri ve arıcılık hakkında detaylı bilgiler.
+                    </p>
+                    <a href="{% url 'aricilik' %}" class="btn btn-warning">
+                        <i class="bi bi-arrow-right"></i> Daha Fazla
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="info-card scroll-reveal h-100">
+                    <div class="info-card-icon bg-warning bg-opacity-10 rounded-circle p-4 d-inline-flex align-items-center justify-content-center mb-3">
+                        <i class="bi bi-link-45deg text-warning" style="font-size: 2.5rem;"></i>
+                    </div>
+                    <h5 class="fw-bold mb-3">Bağlantılar</h5>
+                    <p class="text-muted mb-3">
+                        Türkiye Arıcılar Birliği, Tarım Bakanlığı ve diğer önemli kuruluşlar.
+                    </p>
+                    <a href="{% url 'baglantilar' %}" class="btn btn-warning">
+                        <i class="bi bi-arrow-right"></i> Bağlantılar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- İstatistik Animasyon Scripti -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Scroll reveal animasyonu
+    const reveals = document.querySelectorAll('.scroll-reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+            }
+        });
+    }, { threshold: 0.1 });
+    
+    reveals.forEach(reveal => revealObserver.observe(reveal));
+    
+    // Sayı animasyonu
+    const animateValue = (element, start, end, duration) => {
+        let startTimestamp = null;
+        const step = (timestamp) => {
+            if (!startTimestamp) startTimestamp = timestamp;
+            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+            const current = Math.floor(progress * (end - start) + start);
+            element.textContent = current.toLocaleString('tr-TR');
+            if (progress < 1) {
+                window.requestAnimationFrame(step);
+            } else {
+                element.textContent = end.toLocaleString('tr-TR');
+            }
+        };
+        window.requestAnimationFrame(step);
+    };
+    
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const numberObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                entry.target.classList.add('animated');
+                const target = parseInt(entry.target.getAttribute('data-target'));
+                animateValue(entry.target, 0, target, 2000);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    statNumbers.forEach(stat => numberObserver.observe(stat));
+    
+    // Bootstrap 5 Tooltips
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+});
+</script>
+{% endblock %}

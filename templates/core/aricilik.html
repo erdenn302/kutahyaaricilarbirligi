@@ -1,0 +1,505 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section honeycomb-bg py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="hero-title mb-4">
+                    <i class="bi bi-bee-fill text-warning"></i> {{ aricilik.baslik }}
+                </h1>
+                {% if aricilik.resim %}
+                <img src="{{ aricilik.resim.url }}" alt="{{ aricilik.baslik }}" class="img-fluid rounded-4 shadow-lg mb-4" style="max-height: 400px; object-fit: cover;">
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- İçerik ve Takvim Bölümü -->
+<section class="py-5 logo-pattern-bg">
+    <div class="container">
+        <div class="row">
+            <!-- Ana İçerik -->
+            <div class="col-lg-8 mb-5">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-body p-4">
+                        <div class="content">
+                            {{ aricilik.icerik|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Yan Menü -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-warning text-dark">
+                        <h5 class="mb-0"><i class="bi bi-calendar3"></i> Arıcılık Takvimi</h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted small mb-3">
+                            Yıl boyunca yapılması gereken temel arıcılık çalışmalarını ay ay takip edin.
+                        </p>
+                        <button class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#takvimModal">
+                            <i class="bi bi-calendar-event"></i> Ayrıntılı Takvimi Görüntüle
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-dark text-white">
+                        <h5 class="mb-0"><i class="bi bi-info-circle"></i> Hızlı Bilgiler</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success"></i> 
+                                <strong>Arı Ürünleri:</strong> Bal, polen, propolis
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success"></i> 
+                                <strong>Eğitimler:</strong> Arıcılık kursları
+                            </li>
+                            <li class="mb-2">
+                                <i class="bi bi-check-circle-fill text-success"></i> 
+                                <strong>Destekler:</strong> Üretici destek programları
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Arıcılık Takvimi Modal (Bootstrap 5 Modal) -->
+<div class="modal fade" id="takvimModal" tabindex="-1" aria-labelledby="takvimModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-dark">
+                <h1 class="modal-title fs-5" id="takvimModalLabel">
+                    <i class="bi bi-calendar3"></i> Arıcılık Takvimi
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- Bootstrap 5 Tabs -->
+                <ul class="nav nav-tabs mb-4" id="takvimTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="ilkbahar-tab" data-bs-toggle="tab" data-bs-target="#ilkbahar" type="button" role="tab">
+                            <i class="bi bi-flower1"></i> İlkbahar
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="yaz-tab" data-bs-toggle="tab" data-bs-target="#yaz" type="button" role="tab">
+                            <i class="bi bi-sun"></i> Yaz
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="sonbahar-tab" data-bs-toggle="tab" data-bs-target="#sonbahar" type="button" role="tab">
+                            <i class="bi bi-tree"></i> Sonbahar
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="kis-tab" data-bs-toggle="tab" data-bs-target="#kis" type="button" role="tab">
+                            <i class="bi bi-snow"></i> Kış
+                        </button>
+                    </li>
+                </ul>
+                
+                <div class="tab-content" id="takvimTabContent">
+                    <!-- İlkbahar -->
+                    <div class="tab-pane fade show active" id="ilkbahar" role="tabpanel">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">MART</span>
+                                            İlkbahar Hazırlıkları
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan kontrolleri ve temizlik
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kış kayıplarının değerlendirilmesi
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Ana arı kontrolü
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Besleme kontrolü
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">NİSAN</span>
+                                            Koloni Güçlendirme
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Koloni güçlendirme çalışmaları
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Ana arı yenileme
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Oğul önleme tedbirleri
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Çerçeve ekleme
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">MAYIS</span>
+                                            Bal Akımı Hazırlıkları
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Bal akımı hazırlıkları
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kat atma işlemleri
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Bal hasadı hazırlıkları
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Hastalık kontrolü
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Yaz -->
+                    <div class="tab-pane fade" id="yaz" role="tabpanel">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">HAZİRAN</span>
+                                            Bal Hasadı
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Bal hasadı başlangıcı
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Petek kontrolü
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Bal süzme işlemleri
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kalite kontrolü
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">TEMMUZ</span>
+                                            Ana Bal Hasadı
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Ana bal hasadı dönemi
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                İkinci kat hasadı
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan güçlendirme
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Su kaynağı kontrolü
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">AĞUSTOS</span>
+                                            Son Hasat
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Son bal hasadı
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kış hazırlıkları başlangıcı
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Varroa mücadelesi
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Besleme kontrolü
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sonbahar -->
+                    <div class="tab-pane fade" id="sonbahar" role="tabpanel">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">EYLÜL</span>
+                                            Kış Hazırlıkları
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kış beslemesi başlangıcı
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan güçlendirme
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Ana arı kontrolü
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan izolasyonu
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">EKİM</span>
+                                            Kış Beslemesi
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kış beslemesi devamı
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan bakımı
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Hastalık kontrolü
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan yerleşimi kontrolü
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">KASIM</span>
+                                            Kış Bakımı
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Son besleme kontrolü
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan izolasyonu tamamlama
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kış bakımı hazırlıkları
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Ekipman bakımı
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Kış -->
+                    <div class="tab-pane fade" id="kis" role="tabpanel">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">ARALIK</span>
+                                            Kış Dönemi
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan kontrolü (dışarıdan)
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Besleme kontrolü
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan güvenliği
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Ekipman bakımı
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">OCAK</span>
+                                            Kış Bakımı
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan kontrolü (minimal)
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Besleme takibi
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kış kayıpları kontrolü
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Planlama çalışmaları
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card border-warning h-100">
+                                    <div class="card-header bg-warning bg-opacity-10">
+                                        <h5 class="mb-0">
+                                            <span class="badge bg-warning text-dark me-2">ŞUBAT</span>
+                                            İlkbahar Hazırlıkları
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                İlkbahar hazırlıkları başlangıcı
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Kovan kontrolü artırılması
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Besleme programı
+                                            </li>
+                                            <li class="list-group-item">
+                                                <i class="bi bi-check-circle-fill text-success me-2"></i>
+                                                Ekipman hazırlıkları
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kapat</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
