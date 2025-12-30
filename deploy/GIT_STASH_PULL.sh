@@ -8,9 +8,9 @@ echo ""
 
 cd /var/www/kutahyaaricilarbirligi
 
-# Local değişiklikleri stash et
+# Local değişiklikleri stash et (önce!)
 echo "📦 Local değişiklikler stash ediliyor..."
-git stash
+git stash > /dev/null 2>&1 || true
 echo "   ✅ Stash tamamlandı!"
 
 # Pull yap
