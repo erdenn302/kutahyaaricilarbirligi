@@ -27,7 +27,8 @@
                 <img src="{% static 'images/logo.png' %}" alt="{{ site_ayarlari.site_adi }}" class="navbar-logo" style="height: 50px; width: auto; margin-right: 10px; object-fit: contain;" onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-block';">
                 <i class="bi bi-bee-fill me-2 navbar-logo-fallback" style="display: none;"></i>
                 {% endif %}
-                <span>{{ site_ayarlari.site_adi }}</span>
+                <span class="d-none d-md-inline">{{ site_ayarlari.site_adi }}</span>
+                <span class="d-md-none">KAYB</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
                 <span class="navbar-toggler-icon"></span>
