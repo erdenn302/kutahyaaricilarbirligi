@@ -1,6 +1,6 @@
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
-from .models import Haber, Duyuru, Proje
+from .models import Haber, Duyuru, Proje, Kongre
 
 
 class StaticViewSitemap(Sitemap):
@@ -16,6 +16,8 @@ class StaticViewSitemap(Sitemap):
             'duyurular',
             'projeler',
             'aricilik',
+            'mevzuatlar',
+            'kongreler',
             'baglantilar',
         ]
 

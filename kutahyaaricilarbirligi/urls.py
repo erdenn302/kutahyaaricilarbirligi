@@ -8,7 +8,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 from core import views as core_views
-from core.sitemaps import StaticViewSitemap, HaberSitemap, DuyuruSitemap, ProjeSitemap
+from core.sitemaps import StaticViewSitemap, HaberSitemap, DuyuruSitemap, ProjeSitemap, KongreSitemap
 
 # Sitemap dictionary
 sitemaps = {
@@ -16,6 +16,7 @@ sitemaps = {
     'haberler': HaberSitemap,
     'duyurular': DuyuruSitemap,
     'projeler': ProjeSitemap,
+    'kongreler': KongreSitemap,
 }
 
 urlpatterns = [
@@ -32,6 +33,9 @@ urlpatterns = [
     path("projeler/<slug:slug>/", core_views.proje_detay, name="proje_detay"),
     path("aricilik/", core_views.aricilik, name="aricilik"),
     path("baglantilar/", core_views.baglantilar, name="baglantilar"),
+    path("mevzuatlar/", core_views.mevzuatlar, name="mevzuatlar"),
+    path("kongreler/", core_views.kongreler, name="kongreler"),
+    path("kongreler/<slug:slug>/", core_views.kongre_detay, name="kongre_detay"),
 ]
 
 # Development için media dosyalarını serve et

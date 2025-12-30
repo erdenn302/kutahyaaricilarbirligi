@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
 from django.http import HttpResponse
 from django.conf import settings
-from .models import Haber, Duyuru, Proje, Baglanti, Hakkimizda, AricilikSayfasi
+from .models import Haber, Duyuru, Proje, Baglanti, Hakkimizda, AricilikSayfasi, Mevzuat, MevzuatKategori, Kongre
 
 
 def robots_txt(request):
@@ -149,3 +149,47 @@ def baglantilar(request):
         "baglantilar": baglantilar,
     }
     return render(request, "core/baglantilar.html", context)
+
+
+def mevzuatlar(request):
+    """Mevzuatlar sayfası - Kategorilere göre gruplandırılmış"""
+    kategoriler = MevzuatKategori.objects.filter(aktif=True).order_by('sira', 'ad')
+    mevzuatlar_dict = {}
+    
+    for kategori in kategoriler:
+        mevzuatlar = Mevzuat.objects.filter(kategori=kategori, aktif=True).order_by('sira', '-yayin_tarihi')
+        if mevzuatlar.exists():
+            mevzuatlar_dict[kategori] = mevzuatlar
+    
+    context = {
+        "page_title": "Mevzuatlar - Kütahya Arı Yetiştiricileri Birliği",
+        "meta_description": "Arıcılık ile ilgili kanunlar, yönetmelikler, genelgeler, tebliğler, talimatnameler ve ana sözleşmeler.",
+        "mevzuatlar_dict": mevzuatlar_dict,
+    }
+    return render(request, "core/mevzuatlar.html", context)
+
+
+def kongreler(request):
+    """Kongreler listesi"""
+    kongre_listesi = Kongre.objects.filter(aktif=True).order_by('-tarih', 'sira')
+    paginator = Paginator(kongre_listesi, 9)
+    page_number = request.GET.get('sayfa')
+    kongreler = paginator.get_page(page_number)
+    
+    context = {
+        "page_title": "Kongreler - Kütahya Arı Yetiştiricileri Birliği",
+        "meta_description": "Arıcılık sektörü ile ilgili kongreler, sempozyumlar ve etkinlikler.",
+        "kongreler": kongreler,
+    }
+    return render(request, "core/kongreler.html", context)
+
+
+def kongre_detay(request, slug):
+    """Kongre detay sayfası"""
+    kongre = get_object_or_404(Kongre, slug=slug, aktif=True)
+    context = {
+        "page_title": f"{kongre.baslik} - Kütahya Arı Yetiştiricileri Birliği",
+        "meta_description": kongre.ozet[:160] if len(kongre.ozet) > 160 else kongre.ozet,
+        "kongre": kongre,
+    }
+    return render(request, "core/kongre_detay.html", context)

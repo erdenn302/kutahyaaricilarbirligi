@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.utils.html import format_html
 from django.urls import reverse
 from django.utils.safestring import mark_safe
-from .models import Haber, Duyuru, Proje, Baglanti, Hakkimizda, AricilikSayfasi, SiteAyarlari
+from .models import Haber, Duyuru, Proje, Baglanti, Hakkimizda, AricilikSayfasi, SiteAyarlari, MevzuatKategori, Mevzuat, Kongre
 
 # Admin site özelleştirmeleri
 admin.site.site_header = "Kütahya Arı Yetiştiricileri Birliği - Yönetim Paneli"
@@ -303,3 +303,115 @@ class SiteAyarlariAdmin(admin.ModelAdmin):
             return format_html('<img src="{}" style="max-width: 64px; max-height: 64px; border: 2px solid #ddd; border-radius: 5px; padding: 5px; background: #f8f9fa;" />', obj.favicon.url)
         return format_html('<span style="color: #999; font-style: italic;">Favicon yüklenmemiş</span>')
     favicon_onizleme.short_description = 'Favicon Önizleme'
+
+
+@admin.register(MevzuatKategori)
+class MevzuatKategoriAdmin(admin.ModelAdmin):
+    list_display = ['ad', 'sira', 'aktif', 'aktif_durumu']
+    list_filter = ['aktif']
+    list_editable = ['sira', 'aktif']
+    readonly_fields = []
+    
+    fieldsets = (
+        ('📋 Temel Bilgiler', {
+            'fields': ('ad', 'aciklama', 'sira', 'aktif'),
+            'description': '<div style="background-color: #e7f3ff; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>💡 Kategori:</strong> Mevzuat kategorisini seçin. Kategoriler mevzuatlar sayfasında gruplandırılmış olarak görünecektir.</div>'
+        }),
+    )
+    
+    def aktif_durumu(self, obj):
+        if obj.aktif:
+            return format_html('<span style="color: green; font-weight: bold;">✓ Aktif</span>')
+        return format_html('<span style="color: red; font-weight: bold;">✗ Pasif</span>')
+    aktif_durumu.short_description = 'Durum'
+
+
+@admin.register(Mevzuat)
+class MevzuatAdmin(admin.ModelAdmin):
+    list_display = ['baslik_kisa', 'kategori', 'yayin_tarihi', 'aktif', 'aktif_durumu', 'sira']
+    list_filter = ['kategori', 'aktif', 'yayin_tarihi']
+    search_fields = ['baslik', 'aciklama']
+    date_hierarchy = 'yayin_tarihi'
+    list_editable = ['aktif', 'sira']
+    readonly_fields = ['olusturma_tarihi', 'guncelleme_tarihi']
+    
+    fieldsets = (
+        ('📝 Temel Bilgiler', {
+            'fields': ('baslik', 'kategori', 'aciklama'),
+            'description': '<div style="background-color: #e7f3ff; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>💡 Mevzuat:</strong> Mevzuat başlığını ve kategorisini buradan düzenleyebilirsiniz.</div>'
+        }),
+        ('📄 Dosya / Link', {
+            'fields': ('dosya', 'dis_link'),
+            'description': '<div style="background-color: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>📄 Dosya Yükleme:</strong> PDF veya DOCX dosyası yükleyebilir veya dış bir link (örnek: tab.org.tr) ekleyebilirsiniz. En az birini doldurmalısınız.</div>'
+        }),
+        ('⚙️ Ayarlar', {
+            'fields': ('aktif', 'sira', 'yayin_tarihi'),
+            'description': '<div style="background-color: #d1ecf1; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>⚙️ Yayın Ayarları:</strong> "Yayında Göster" kutusunu işaretlerseniz mevzuat web sitesinde görünür olur.</div>'
+        }),
+        ('📅 Tarih Bilgileri', {
+            'fields': ('olusturma_tarihi', 'guncelleme_tarihi'),
+            'classes': ('collapse',),
+            'description': 'Bu bilgiler otomatik olarak oluşturulur ve güncellenir.'
+        }),
+    )
+    
+    def baslik_kisa(self, obj):
+        return obj.baslik[:60] + '...' if len(obj.baslik) > 60 else obj.baslik
+    baslik_kisa.short_description = 'Başlık'
+    
+    def aktif_durumu(self, obj):
+        if obj.aktif:
+            return format_html('<span style="color: green; font-weight: bold;">✓ Aktif</span>')
+        return format_html('<span style="color: red; font-weight: bold;">✗ Pasif</span>')
+    aktif_durumu.short_description = 'Durum'
+
+
+@admin.register(Kongre)
+class KongreAdmin(admin.ModelAdmin):
+    list_display = ['baslik_kisa', 'tarih', 'yer', 'resim_onizleme', 'aktif', 'aktif_durumu', 'sira']
+    list_filter = ['aktif', 'tarih']
+    search_fields = ['baslik', 'ozet', 'icerik']
+    date_hierarchy = 'tarih'
+    list_editable = ['aktif', 'sira']
+    prepopulated_fields = {'slug': ('baslik',)}
+    readonly_fields = ['olusturma_tarihi', 'guncelleme_tarihi', 'resim_onizleme']
+    
+    fieldsets = (
+        ('📝 Temel Bilgiler', {
+            'fields': ('baslik', 'slug', 'ozet', 'icerik'),
+            'description': '<div style="background-color: #e7f3ff; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>💡 Kongre:</strong> Kongre başlığını, özetini ve detaylı içeriğini buradan düzenleyebilirsiniz.</div>'
+        }),
+        ('🖼️ Görsel', {
+            'fields': ('resim', 'resim_onizleme'),
+            'description': '<div style="background-color: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>📷 Resim Yükleme:</strong> Kongre için bir kapak resmi yükleyebilirsiniz. Önerilen boyut: 800x600 piksel.</div>'
+        }),
+        ('📅 Tarih ve Yer', {
+            'fields': ('tarih', 'yer', 'link'),
+            'description': '<div style="background-color: #d1ecf1; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>📅 Kongre Bilgileri:</strong> Kongre tarihi, yeri ve ilgili link bilgilerini buradan ekleyebilirsiniz.</div>'
+        }),
+        ('⚙️ Ayarlar', {
+            'fields': ('aktif', 'sira'),
+            'description': '<div style="background-color: #d1ecf1; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>⚙️ Yayın Ayarları:</strong> "Yayında Göster" kutusunu işaretlerseniz kongre web sitesinde görünür olur.</div>'
+        }),
+        ('📅 Tarih Bilgileri', {
+            'fields': ('olusturma_tarihi', 'guncelleme_tarihi'),
+            'classes': ('collapse',),
+            'description': 'Bu bilgiler otomatik olarak oluşturulur ve güncellenir.'
+        }),
+    )
+    
+    def baslik_kisa(self, obj):
+        return obj.baslik[:50] + '...' if len(obj.baslik) > 50 else obj.baslik
+    baslik_kisa.short_description = 'Başlık'
+    
+    def resim_onizleme(self, obj):
+        if obj.resim:
+            return format_html('<img src="{}" style="max-width: 200px; max-height: 150px; border: 2px solid #ddd; border-radius: 5px; padding: 5px;" />', obj.resim.url)
+        return format_html('<span style="color: #999; font-style: italic;">Resim yüklenmemiş</span>')
+    resim_onizleme.short_description = 'Resim Önizleme'
+    
+    def aktif_durumu(self, obj):
+        if obj.aktif:
+            return format_html('<span style="color: green; font-weight: bold;">✓ Aktif</span>')
+        return format_html('<span style="color: red; font-weight: bold;">✗ Pasif</span>')
+    aktif_durumu.short_description = 'Durum'

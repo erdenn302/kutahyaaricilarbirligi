@@ -430,3 +430,202 @@ class SiteAyarlari(models.Model):
         # Sadece bir kayıt olmasını sağla
         self.pk = 1
         super().save(*args, **kwargs)
+
+
+class MevzuatKategori(models.Model):
+    """Mevzuat kategorileri (Kanunlar, Yönetmelikler, vb.)"""
+    KATEGORI_SECENEKLERI = [
+        ('kanun', 'Kanunlar'),
+        ('yonetmelik', 'Yönetmelikler'),
+        ('genelge', 'Genelgeler'),
+        ('teblig', 'Tebliğler'),
+        ('talimatname', 'Talimatnameler'),
+        ('anasozlesme', 'Ana Sözleşmeler'),
+    ]
+    
+    ad = models.CharField(
+        max_length=50,
+        choices=KATEGORI_SECENEKLERI,
+        unique=True,
+        verbose_name="Kategori Adı",
+        help_text="Mevzuat kategorisini seçin"
+    )
+    aciklama = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Açıklama",
+        help_text="Kategori hakkında kısa açıklama (isteğe bağlı)"
+    )
+    sira = models.IntegerField(
+        default=0,
+        verbose_name="Sıra",
+        help_text="Kategorilerin görüntülenme sırası (düşük sayı önce görünür)"
+    )
+    aktif = models.BooleanField(
+        default=True,
+        verbose_name="Aktif",
+        help_text="Bu kategoriyi web sitesinde göster"
+    )
+
+    class Meta:
+        verbose_name = "Mevzuat Kategorisi"
+        verbose_name_plural = "Mevzuat Kategorileri"
+        ordering = ['sira', 'ad']
+
+    def __str__(self):
+        return self.get_ad_display()
+
+
+class Mevzuat(models.Model):
+    """Mevzuatlar (Kanunlar, Yönetmelikler, Genelgeler, vb.)"""
+    baslik = models.CharField(
+        max_length=500,
+        verbose_name="Başlık",
+        help_text="Mevzuat başlığını buraya yazın"
+    )
+    kategori = models.ForeignKey(
+        MevzuatKategori,
+        on_delete=models.CASCADE,
+        related_name='mevzuatlar',
+        verbose_name="Kategori",
+        help_text="Mevzuat kategorisini seçin"
+    )
+    dosya = models.FileField(
+        upload_to='mevzuatlar/',
+        blank=True,
+        null=True,
+        verbose_name="Dosya (PDF/DOCX)",
+        help_text="Mevzuat dosyasını yükleyin (PDF veya DOCX formatında)"
+    )
+    dis_link = models.URLField(
+        blank=True,
+        null=True,
+        verbose_name="Dış Link",
+        help_text="Eğer dosya yoksa, dış bir link ekleyebilirsiniz (örnek: tab.org.tr linki)"
+    )
+    aciklama = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="Açıklama",
+        help_text="Mevzuat hakkında kısa açıklama (isteğe bağlı)"
+    )
+    yayin_tarihi = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name="Yayın Tarihi",
+        help_text="Mevzuatın yayın tarihi (isteğe bağlı)"
+    )
+    sira = models.IntegerField(
+        default=0,
+        verbose_name="Sıra",
+        help_text="Aynı kategorideki mevzuatların görüntülenme sırası"
+    )
+    aktif = models.BooleanField(
+        default=True,
+        verbose_name="Yayında Göster",
+        help_text="Bu mevzuatı web sitesinde göster"
+    )
+    olusturma_tarihi = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Oluşturulma Tarihi"
+    )
+    guncelleme_tarihi = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Son Güncelleme"
+    )
+
+    class Meta:
+        verbose_name = "Mevzuat"
+        verbose_name_plural = "Mevzuatlar"
+        ordering = ['kategori__sira', 'kategori__ad', 'sira', '-yayin_tarihi']
+
+    def __str__(self):
+        return f"{self.kategori.get_ad_display()} - {self.baslik}"
+
+    def get_dosya_url(self):
+        """Dosya veya dış link URL'sini döndürür"""
+        if self.dosya:
+            return self.dosya.url
+        elif self.dis_link:
+            return self.dis_link
+        return None
+
+
+class Kongre(models.Model):
+    """Kongreler"""
+    baslik = models.CharField(
+        max_length=200,
+        verbose_name="Başlık",
+        help_text="Kongre başlığını buraya yazın. Örnek: 'X. Ulusal Arıcılık Kongresi'"
+    )
+    slug = models.SlugField(
+        max_length=200,
+        unique=True,
+        blank=True,
+        verbose_name="URL Adresi",
+        help_text="Bu alan otomatik oluşturulur. Genelde değiştirmenize gerek yok."
+    )
+    ozet = models.TextField(
+        max_length=500,
+        verbose_name="Özet",
+        help_text="Kongrenin kısa özeti (maksimum 500 karakter)"
+    )
+    icerik = RichTextField(
+        verbose_name="İçerik",
+        help_text="Kongre hakkında detaylı bilgi. Tarih, yer, konuşmacılar, program vb."
+    )
+    resim = models.ImageField(
+        upload_to='kongreler/',
+        blank=True,
+        null=True,
+        verbose_name="Kapak Resmi",
+        help_text="Kongre için bir kapak resmi seçin (isteğe bağlı)"
+    )
+    tarih = models.DateField(
+        verbose_name="Kongre Tarihi",
+        help_text="Kongrenin yapılacağı veya yapıldığı tarih"
+    )
+    yer = models.CharField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name="Yer",
+        help_text="Kongrenin yapılacağı yer (şehir, mekan)"
+    )
+    link = models.URLField(
+        blank=True,
+        null=True,
+        verbose_name="Kongre Linki",
+        help_text="Kongre ile ilgili dış link (isteğe bağlı)"
+    )
+    aktif = models.BooleanField(
+        default=True,
+        verbose_name="Yayında Göster",
+        help_text="Bu kongreyi web sitesinde göster"
+    )
+    sira = models.IntegerField(
+        default=0,
+        verbose_name="Sıra",
+        help_text="Kongrelerin görüntülenme sırası (düşük sayı önce görünür, tarih sırasına göre)"
+    )
+    olusturma_tarihi = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Oluşturulma Tarihi"
+    )
+    guncelleme_tarihi = models.DateTimeField(
+        auto_now=True,
+        verbose_name="Son Güncelleme"
+    )
+
+    class Meta:
+        verbose_name = "Kongre"
+        verbose_name_plural = "Kongreler"
+        ordering = ['-tarih', 'sira']
+
+    def __str__(self):
+        return self.baslik
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.baslik)
+        super().save(*args, **kwargs)

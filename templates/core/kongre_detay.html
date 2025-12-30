@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<!-- Kongre Detay Sayfası -->
+<section class="py-5 honeycomb-bg">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card border-0 shadow-lg">
+                    {% if kongre.resim %}
+                    <img src="{{ kongre.resim.url }}" class="card-img-top" alt="{{ kongre.baslik }}" style="height: 400px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body p-4">
+                        <h1 class="card-title mb-4">{{ kongre.baslik }}</h1>
+                        
+                        <div class="mb-4">
+                            <p class="mb-2">
+                                <i class="bi bi-calendar text-warning"></i> 
+                                <strong>Tarih:</strong> {{ kongre.tarih|date:"d F Y" }}
+                            </p>
+                            {% if kongre.yer %}
+                            <p class="mb-2">
+                                <i class="bi bi-geo-alt text-warning"></i> 
+                                <strong>Yer:</strong> {{ kongre.yer }}
+                            </p>
+                            {% endif %}
+                            {% if kongre.link %}
+                            <p class="mb-2">
+                                <i class="bi bi-link-45deg text-warning"></i> 
+                                <strong>Link:</strong> 
+                                <a href="{{ kongre.link }}" target="_blank" class="text-decoration-none">
+                                    {{ kongre.link }} <i class="bi bi-box-arrow-up-right"></i>
+                                </a>
+                            </p>
+                            {% endif %}
+                        </div>
+
+                        <hr>
+
+                        <div class="mt-4">
+                            <h5 class="mb-3">Özet</h5>
+                            <p class="text-muted">{{ kongre.ozet }}</p>
+                        </div>
+
+                        <div class="mt-4">
+                            <h5 class="mb-3">Detaylı Bilgi</h5>
+                            <div class="rich-text-content">
+                                {{ kongre.icerik|safe }}
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <a href="{% url 'kongreler' %}" class="btn btn-outline-warning">
+                                <i class="bi bi-arrow-left"></i> Kongreler Listesine Dön
+                            </a>
+                            {% if kongre.link %}
+                            <a href="{{ kongre.link }}" target="_blank" class="btn btn-warning ms-2">
+                                <i class="bi bi-box-arrow-up-right"></i> Kongre Linki
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
