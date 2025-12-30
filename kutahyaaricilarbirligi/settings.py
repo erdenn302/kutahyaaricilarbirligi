@@ -221,10 +221,12 @@ if not DEBUG:
     }
 
 # Production Security Settings
+# Not: SSL sertifikası yüklendikten sonra bu ayarları aktif edin
 if not DEBUG:
-    SECURE_SSL_REDIRECT = True
-    SESSION_COOKIE_SECURE = True
-    CSRF_COOKIE_SECURE = True
+    # SSL sertifikası yokken False yapın, yüklendikten sonra True yapın
+    SECURE_SSL_REDIRECT = False  # SSL sertifikası yüklendikten sonra True yapın
+    SESSION_COOKIE_SECURE = False  # SSL sertifikası yüklendikten sonra True yapın
+    CSRF_COOKIE_SECURE = False  # SSL sertifikası yüklendikten sonra True yapın
     SECURE_BROWSER_XSS_FILTER = True
     SECURE_CONTENT_TYPE_NOSNIFF = True
     X_FRAME_OPTIONS = 'DENY'
