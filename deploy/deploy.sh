@@ -98,9 +98,11 @@ sudo ln -sf /etc/nginx/sites-available/kutahyaaricilarbirligi /etc/nginx/sites-e
 sudo nginx -t
 sudo systemctl reload nginx
 
-# SSL Sertifikası (Let's Encrypt)
-echo "🔒 SSL sertifikası alınıyor..."
-sudo certbot --nginx -d kutahyaaricilarbirligi.com -d www.kutahyaaricilarbirligi.com --non-interactive --agree-tos --email admin@kutahyaaricilarbirligi.com
+# SSL Sertifikası
+echo "🔒 SSL sertifikası kontrol ediliyor..."
+echo "⚠️  NOT: Mevcut SSL sertifikanızı /etc/ssl/certs/ ve /etc/ssl/private/ dizinlerine yükleyin"
+echo "⚠️  Sonra /etc/nginx/sites-available/kutahyaaricilarbirligi dosyasındaki ssl_certificate yollarını güncelleyin"
+echo "⚠️  Detaylı talimatlar için: deploy/SSL_SERTIFIKA_TALIMATI.md dosyasına bakın"
 
 # Log dizini oluştur
 echo "📝 Log dizini oluşturuluyor..."
@@ -110,4 +112,5 @@ sudo chown -R www-data:www-data $PROJECT_DIR/logs
 echo "✅ Deployment tamamlandı!"
 echo "🌐 Site: https://www.kutahyaaricilarbirligi.com"
 echo "🔐 Admin: https://www.kutahyaaricilarbirligi.com/admin/"
+
 

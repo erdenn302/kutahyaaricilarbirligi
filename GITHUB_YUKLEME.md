@@ -26,7 +26,6 @@ git --version
 ### Terminal/Command Prompt'u açın ve proje klasörüne gidin:
 
 ```bash
-cd C:\Users\olc.atolye1\Documents\kutahyaaricilarbirligi
 ```
 
 ### Git Repository'sini başlatın:
@@ -109,4 +108,5 @@ GitHub Actions'ı aktif etmek için repository ayarlarından etkinleştirin.
 
 **Not**: İlk yüklemede GitHub kullanıcı adı ve şifre isteyebilir. 
 GitHub Personal Access Token kullanmanız önerilir (Settings > Developer settings > Personal access tokens).
+
 

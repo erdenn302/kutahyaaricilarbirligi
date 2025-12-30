@@ -232,3 +232,4 @@ sudo chown -R www-data:www-data /var/www/kutahyaaricilarbirligi/staticfiles
 
 Sorun yaşarsanız log dosyalarını kontrol edin ve hata mesajlarını kaydedin.
 
+

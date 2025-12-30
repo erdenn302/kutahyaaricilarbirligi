@@ -34,6 +34,7 @@ db.sqlite3-journal
 /media
 /staticfiles
 /static
+/logs
 
 # IDE
 .vscode/
@@ -75,4 +76,5 @@ coverage.xml
 .mypy_cache/
 .dmypy.json
 dmypy.json
+
 

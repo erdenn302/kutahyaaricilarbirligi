@@ -81,3 +81,4 @@ class Command(BaseCommand):
             self.style.SUCCESS('Bağlantılar başarıyla oluşturuldu!')
         )
 
+

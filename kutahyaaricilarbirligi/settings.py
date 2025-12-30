@@ -21,12 +21,19 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-t_glm@!6a=q1n!)9=%=j7jr$nzr$8ge0%_bp)8tu__09)$vei!')
+# Production'da mutlaka environment variable'dan alınmalı!
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY')
+if not SECRET_KEY:
+    # Development için fallback (production'da kullanılmamalı!)
+    SECRET_KEY = 'django-insecure-t_glm@!6a=q1n!)9=%=j7jr$nzr$8ge0%_bp)8tu__09)$vei!'
+    import warnings
+    warnings.warn("SECRET_KEY environment variable not set! Using development key. This is UNSAFE for production!")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+# Production'da mutlaka DEBUG=False olmalı!
+DEBUG = os.environ.get('DEBUG', 'False').lower() in ('true', '1', 'yes')
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,www.kutahyaaricilarbirligi.com,kutahyaaricilarbirligi.com').split(',')
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1,www.kutahyaaricilarbirligi.com,kutahyaaricilarbirligi.com,37.148.208.77').split(',')
 
 
 # Application definition
@@ -166,6 +173,47 @@ CKEDITOR_CONFIGS = {
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Logging (sadece production'da aktif)
+if not DEBUG:
+    # Log klasörünü oluştur
+    LOG_DIR = BASE_DIR / 'logs'
+    LOG_DIR.mkdir(exist_ok=True)
+    
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'verbose': {
+                'format': '{levelname} {asctime} {module} {message}',
+                'style': '{',
+            },
+        },
+        'handlers': {
+            'file': {
+                'level': 'INFO',
+                'class': 'logging.FileHandler',
+                'filename': LOG_DIR / 'django.log',
+                'formatter': 'verbose',
+            },
+            'console': {
+                'level': 'INFO',
+                'class': 'logging.StreamHandler',
+                'formatter': 'verbose',
+            },
+        },
+        'root': {
+            'handlers': ['console', 'file'],
+            'level': 'INFO',
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file', 'console'],
+                'level': 'INFO',
+                'propagate': False,
+            },
+        },
+    }
 
 # Production Security Settings
 if not DEBUG:

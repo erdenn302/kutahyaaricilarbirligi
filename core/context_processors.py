@@ -10,3 +10,4 @@ def site_ayarlari(request):
         'site_ayarlari': ayarlar
     }
 
+
