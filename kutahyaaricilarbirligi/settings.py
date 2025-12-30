@@ -147,7 +147,9 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# ManifestStaticFilesStorage yerine CompressedStaticFilesStorage kullan
+# (manifest sorunlarını önlemek için)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # Media files (uploaded files)
 MEDIA_URL = '/media/'
