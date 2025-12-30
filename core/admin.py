@@ -274,6 +274,10 @@ class SiteAyarlariAdmin(admin.ModelAdmin):
             'fields': ('facebook_url', 'instagram_url', 'twitter_url', 'youtube_url', 'linkedin_url'),
             'description': '<div style="background-color: #d1ecf1; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>🌐 Sosyal Medya:</strong> Sosyal medya hesaplarınızın linklerini buradan ekleyebilirsiniz. Bu linkler footer bölümünde görünecektir.</div>'
         }),
+        ('🔍 SEO Ayarları', {
+            'fields': ('google_verification_code',),
+            'description': '<div style="background-color: #fff3cd; padding: 10px; border-radius: 5px; margin-bottom: 10px;"><strong>🔍 Google Search Console:</strong> Google Search Console\'dan aldığınız verification code\'u buraya yapıştırın. Detaylı bilgi için GOOGLE_SEO_REHBERI.md dosyasına bakın.</div>'
+        }),
         ('📅 Güncelleme Bilgisi', {
             'fields': ('guncelleme_tarihi',),
             'classes': ('collapse',),
