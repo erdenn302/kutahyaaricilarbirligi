@@ -105,7 +105,7 @@ def duyuru_detay(request, slug):
 
 def projeler(request):
     """Projeler listesi"""
-    proje_listesi = Proje.objects.filter(aktif=True).order_by('-olusturma_tarihi')
+    proje_listesi = Proje.objects.filter(aktif=True).order_by('-baslangic_tarihi', 'sira')
     paginator = Paginator(proje_listesi, 9)
     page_number = request.GET.get('sayfa')
     projeler = paginator.get_page(page_number)

@@ -55,10 +55,11 @@ class ProjeSitemap(Sitemap):
     priority = 0.7
 
     def items(self):
-        return Proje.objects.filter(aktif=True).order_by('-olusturma_tarihi')
+        return Proje.objects.filter(aktif=True).order_by('-baslangic_tarihi')
 
     def lastmod(self, obj):
-        return obj.guncelleme_tarihi
+        # Proje modelinde guncelleme_tarihi yok, baslangic_tarihi kullan
+        return obj.baslangic_tarihi if obj.baslangic_tarihi else None
 
 
 class KongreSitemap(Sitemap):
