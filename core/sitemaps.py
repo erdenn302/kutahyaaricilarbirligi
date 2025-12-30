@@ -60,3 +60,15 @@ class ProjeSitemap(Sitemap):
     def lastmod(self, obj):
         return obj.guncelleme_tarihi
 
+
+class KongreSitemap(Sitemap):
+    """Kongreler için sitemap"""
+    changefreq = 'monthly'
+    priority = 0.7
+
+    def items(self):
+        return Kongre.objects.filter(aktif=True).order_by('-tarih')
+
+    def lastmod(self, obj):
+        return obj.guncelleme_tarihi
+
