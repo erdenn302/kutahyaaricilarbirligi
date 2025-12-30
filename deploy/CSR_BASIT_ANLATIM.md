@@ -132,3 +132,4 @@ Sertifika dosyalarını aldıktan sonra:
 5. ✅ Sertifika dosyalarını al
 6. ✅ Sunucuya yükle ve Nginx'i yapılandır
 
+

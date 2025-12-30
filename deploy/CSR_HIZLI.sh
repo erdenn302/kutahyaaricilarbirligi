@@ -68,3 +68,4 @@ echo "   2. Sertifika oluşturma formuna yapıştırın"
 echo "   3. Private key'i ASLA paylaşmayın!"
 echo "   4. Private key yedeklendi: /etc/ssl/private/kutahyaaricilarbirligi.com.key"
 
+

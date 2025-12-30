@@ -67,3 +67,4 @@ ls -la staticfiles/
 
 Static files zaten toplanmış (1382 unmodified, 3322 post-processed). Sadece uyarıyı gidermek için static klasörünü oluşturuyoruz.
 
+

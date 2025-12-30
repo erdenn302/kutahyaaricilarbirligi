@@ -56,3 +56,4 @@ Push sonrası GitHub'da kontrol edin:
 - `venv/` klasörü yüklenmedi mi?
 - `db.sqlite3` yüklenmedi mi?
 
+

@@ -104,3 +104,4 @@ python manage.py collectstatic --noinput
 sudo journalctl -u gunicorn -n 20 | grep -i "secret\|warning"
 ```
 
+

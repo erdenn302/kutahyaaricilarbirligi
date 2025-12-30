@@ -45,3 +45,4 @@ Virtual environment aktif olduğunda prompt şu şekilde görünür:
 .\venv\Scripts\Activate.ps1; python manage.py collectstatic --noinput
 ```
 
+

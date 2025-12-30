@@ -114,3 +114,4 @@ curl -I http://localhost
 2. **Secret Key**: Her production ortamında farklı olmalı
 3. **İzinler**: `.env` dosyası sadece root tarafından okunabilir olmalı (chmod 600)
 
+

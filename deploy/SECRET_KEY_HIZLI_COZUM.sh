@@ -65,3 +65,4 @@ echo ""
 echo "🔍 Kontrol:"
 sudo journalctl -u gunicorn -n 10 | grep -i "secret\|warning" || echo "✅ SECRET_KEY uyarısı yok!"
 
+

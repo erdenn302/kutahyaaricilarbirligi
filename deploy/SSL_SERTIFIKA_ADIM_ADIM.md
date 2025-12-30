@@ -249,3 +249,4 @@ A: Önemli değil, sadece `/etc/ssl/certs/` ve `/etc/ssl/private/` klasörlerine
 **S: CA Bundle dosyası varsa?**
 A: Eğer ara sertifika zinciri (intermediate certificate) dosyanız varsa, onu da yükleyin ve Nginx config'e `ssl_trusted_certificate` satırı ekleyin.
 
+

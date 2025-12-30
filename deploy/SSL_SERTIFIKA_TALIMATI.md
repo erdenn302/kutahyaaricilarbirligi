@@ -135,3 +135,4 @@ Sertifika ile ilgili sorun yaşarsanız:
 2. SSL bağlantısını test edin: `openssl s_client -connect kutahyaaricilarbirligi.com:443`
 3. Sertifika dosyalarının varlığını ve izinlerini kontrol edin
 
+

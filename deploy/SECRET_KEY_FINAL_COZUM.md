@@ -156,3 +156,4 @@ KEY=value         # ✅
 - [ ] Gunicorn yeniden başlatıldı
 - [ ] Loglarda SECRET_KEY uyarısı yok
 
+

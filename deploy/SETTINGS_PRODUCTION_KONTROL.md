@@ -124,3 +124,4 @@ export DJANGO_SETTINGS_MODULE=kutahyaaricilarbirligi.settings
 python manage.py runserver  # Sadece test için, production'da Gunicorn kullanın
 ```
 
+

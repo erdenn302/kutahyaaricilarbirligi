@@ -82,3 +82,4 @@ echo "   2. Logo yükleyin (Site Ayarları)"
 echo "   3. SSL sertifikası ekleyin (opsiyonel)"
 echo ""
 
+

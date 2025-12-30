@@ -124,3 +124,4 @@ Sertifika dosyasını aldıktan sonra:
 3. Nginx config'i güncelleyin
 4. Nginx'i yeniden başlatın
 
+

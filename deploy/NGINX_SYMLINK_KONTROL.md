@@ -53,3 +53,4 @@ readlink -f /etc/nginx/sites-enabled/kutahyaaricilarbirligi
 
 Eğer doğru çıktıyı veriyorsa, symlink hazır! Devam edin.
 
+

@@ -54,3 +54,4 @@ git pull origin main
 
 Sunucuda genelde local değişiklikler önemli değildir, stash kullanmak en pratik çözümdür.
 
+

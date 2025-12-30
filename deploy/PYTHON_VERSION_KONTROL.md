@@ -70,3 +70,4 @@ python manage.py --version
 
 Django 4.2, Django 5.0'ın tüm özelliklerini destekler ve production için yeterlidir. Django 5.0+ özelliklerine ihtiyacınız yoksa Django 4.2 kullanmanız önerilir.
 
+
