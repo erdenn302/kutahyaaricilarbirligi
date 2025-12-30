@@ -107,20 +107,42 @@
             <div class="collapse navbar-collapse" id="mainNavbar">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link" href="{% url 'home' %}">Anasayfa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'hakkimizda' %}">Hakkımızda</a></li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="haberlerDropdown" role="button" data-bs-toggle="dropdown">
-                            Haberler &amp; Duyurular
+                        <a class="nav-link dropdown-toggle" href="#" id="kurumsalDropdown" role="button" data-bs-toggle="dropdown">
+                            Kurumsal
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="{% url 'haberler' %}">Haberler</a></li>
-                            <li><a class="dropdown-item" href="{% url 'duyurular' %}">Duyurular</a></li>
+                            <li><a class="dropdown-item" href="{% url 'hakkimizda' %}"><i class="bi bi-info-circle me-2"></i> Hakkımızda</a></li>
+                            <li><a class="dropdown-item" href="{% url 'projeler' %}"><i class="bi bi-folder me-2"></i> Projeler</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'projeler' %}">Projeler</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="iceriklerDropdown" role="button" data-bs-toggle="dropdown">
+                            İçerikler
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'haberler' %}"><i class="bi bi-newspaper me-2"></i> Haberler</a></li>
+                            <li><a class="dropdown-item" href="{% url 'duyurular' %}"><i class="bi bi-megaphone me-2"></i> Duyurular</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'kongreler' %}"><i class="bi bi-calendar-event me-2"></i> Kongreler</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="mevzuatDropdown" role="button" data-bs-toggle="dropdown">
+                            Mevzuatlar
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="{% url 'mevzuatlar' %}"><i class="bi bi-file-earmark-text me-2"></i> Tüm Mevzuatlar</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="{% url 'mevzuatlar' %}?kategori=kanun"><i class="bi bi-file-earmark-ruled me-2"></i> Kanunlar</a></li>
+                            <li><a class="dropdown-item" href="{% url 'mevzuatlar' %}?kategori=yonetmelik"><i class="bi bi-file-earmark-check me-2"></i> Yönetmelikler</a></li>
+                            <li><a class="dropdown-item" href="{% url 'mevzuatlar' %}?kategori=genelge"><i class="bi bi-file-earmark-text me-2"></i> Genelgeler</a></li>
+                            <li><a class="dropdown-item" href="{% url 'mevzuatlar' %}?kategori=teblig"><i class="bi bi-file-earmark-post me-2"></i> Tebliğler</a></li>
+                            <li><a class="dropdown-item" href="{% url 'mevzuatlar' %}?kategori=talimatname"><i class="bi bi-file-earmark-code me-2"></i> Talimatnameler</a></li>
+                            <li><a class="dropdown-item" href="{% url 'mevzuatlar' %}?kategori=anasozlesme"><i class="bi bi-file-earmark-medical me-2"></i> Ana Sözleşmeler</a></li>
+                        </ul>
+                    </li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'aricilik' %}">Arıcılık</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'mevzuatlar' %}">Mevzuatlar</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'kongreler' %}">Kongreler</a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'baglantilar' %}">Bağlantılar</a></li>
                 </ul>
             </div>

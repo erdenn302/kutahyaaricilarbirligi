@@ -11,6 +11,18 @@
         <p class="text-center text-muted mb-5">
             Arıcılık sektörü ile ilgili kanunlar, yönetmelikler, genelgeler, tebliğler, talimatnameler ve ana sözleşmeler
         </p>
+        
+        {% if aktif_kategori %}
+        <div class="alert alert-info d-flex align-items-center justify-content-between mb-4">
+            <span>
+                <i class="bi bi-funnel me-2"></i>
+                <strong>{{ aktif_kategori|title }} kategorisi</strong> gösteriliyor
+            </span>
+            <a href="{% url 'mevzuatlar' %}" class="btn btn-sm btn-outline-primary">
+                <i class="bi bi-x-circle me-1"></i> Filtreyi Kaldır
+            </a>
+        </div>
+        {% endif %}
 
         {% if mevzuatlar_dict %}
             {% for kategori, mevzuatlar in mevzuatlar_dict.items %}

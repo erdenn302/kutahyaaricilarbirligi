@@ -153,18 +153,36 @@ def baglantilar(request):
 
 def mevzuatlar(request):
     """Mevzuatlar sayfası - Kategorilere göre gruplandırılmış"""
-    kategoriler = MevzuatKategori.objects.filter(aktif=True).order_by('sira', 'ad')
-    mevzuatlar_dict = {}
+    # URL'den kategori filtresi al
+    kategori_filtre = request.GET.get('kategori', None)
     
-    for kategori in kategoriler:
-        mevzuatlar = Mevzuat.objects.filter(kategori=kategori, aktif=True).order_by('sira', '-yayin_tarihi')
-        if mevzuatlar.exists():
-            mevzuatlar_dict[kategori] = mevzuatlar
+    if kategori_filtre:
+        # Belirli bir kategori göster
+        try:
+            kategori = MevzuatKategori.objects.get(ad=kategori_filtre, aktif=True)
+            kategoriler = [kategori]
+            mevzuatlar_dict = {}
+            mevzuatlar = Mevzuat.objects.filter(kategori=kategori, aktif=True).order_by('sira', '-yayin_tarihi')
+            if mevzuatlar.exists():
+                mevzuatlar_dict[kategori] = mevzuatlar
+        except MevzuatKategori.DoesNotExist:
+            kategoriler = MevzuatKategori.objects.filter(aktif=True).order_by('sira', 'ad')
+            mevzuatlar_dict = {}
+    else:
+        # Tüm kategorileri göster
+        kategoriler = MevzuatKategori.objects.filter(aktif=True).order_by('sira', 'ad')
+        mevzuatlar_dict = {}
+        
+        for kategori in kategoriler:
+            mevzuatlar = Mevzuat.objects.filter(kategori=kategori, aktif=True).order_by('sira', '-yayin_tarihi')
+            if mevzuatlar.exists():
+                mevzuatlar_dict[kategori] = mevzuatlar
     
     context = {
         "page_title": "Mevzuatlar - Kütahya Arı Yetiştiricileri Birliği",
         "meta_description": "Arıcılık ile ilgili kanunlar, yönetmelikler, genelgeler, tebliğler, talimatnameler ve ana sözleşmeler.",
         "mevzuatlar_dict": mevzuatlar_dict,
+        "aktif_kategori": kategori_filtre,
     }
     return render(request, "core/mevzuatlar.html", context)
 
