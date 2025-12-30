@@ -162,24 +162,26 @@
         <div class="row g-4">
             {% if son_haberler %}
             <div class="col-lg-6">
-                <div class="d-flex align-items-center mb-4">
-                    <i class="bi bi-newspaper text-warning" style="font-size: 2rem; margin-right: 15px;"></i>
-                    <h3 class="mb-0">Son Haberler</h3>
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-newspaper text-warning" style="font-size: 1.5rem; margin-right: 10px;"></i>
+                    <h3 class="mb-0" style="font-size: 1.4rem;">Son Haberler</h3>
                 </div>
                 {% for haber in son_haberler %}
-                <div class="news-card scroll-reveal">
+                <div class="news-card-compact scroll-reveal">
                     {% if haber.resim %}
-                    <img src="{{ haber.resim.url }}" class="card-img-top" alt="{{ haber.baslik }}" style="height: 200px; object-fit: cover;">
+                    <img src="{{ haber.resim.url }}" class="card-img-top" alt="{{ haber.baslik }}" style="height: 150px; object-fit: cover;">
                     {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title">{{ haber.baslik }}</h5>
-                        <p class="card-text">{{ haber.ozet|truncatewords:20 }}</p>
-                        <div class="news-date">
-                            <i class="bi bi-calendar"></i> {{ haber.yayin_tarihi|date:"d F Y" }}
+                        <h5 class="card-title-compact">{{ haber.baslik }}</h5>
+                        <p class="card-text-compact">{{ haber.ozet|truncatewords:15 }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="news-date-compact">
+                                <i class="bi bi-calendar"></i> {{ haber.yayin_tarihi|date:"d F Y" }}
+                            </div>
+                            <a href="{% url 'haber_detay' haber.slug %}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-arrow-right"></i> Devamını Oku
+                            </a>
                         </div>
-                        <a href="{% url 'haber_detay' haber.slug %}" class="btn btn-warning btn-sm">
-                            <i class="bi bi-arrow-right"></i> Devamını Oku
-                        </a>
                     </div>
                 </div>
                 {% endfor %}
@@ -193,24 +195,26 @@
             
             {% if son_duyurular %}
             <div class="col-lg-6">
-                <div class="d-flex align-items-center mb-4">
-                    <i class="bi bi-megaphone text-warning" style="font-size: 2rem; margin-right: 15px;"></i>
-                    <h3 class="mb-0">Son Duyurular</h3>
+                <div class="d-flex align-items-center mb-3">
+                    <i class="bi bi-megaphone text-warning" style="font-size: 1.5rem; margin-right: 10px;"></i>
+                    <h3 class="mb-0" style="font-size: 1.4rem;">Son Duyurular</h3>
                 </div>
                 {% for duyuru in son_duyurular %}
-                <div class="news-card scroll-reveal" style="border-left: 4px solid #ffc107;">
+                <div class="news-card-compact scroll-reveal" style="border-left: 4px solid #ffc107;">
                     {% if duyuru.resim %}
-                    <img src="{{ duyuru.resim.url }}" class="card-img-top" alt="{{ duyuru.baslik }}" style="height: 200px; object-fit: cover;">
+                    <img src="{{ duyuru.resim.url }}" class="card-img-top" alt="{{ duyuru.baslik }}" style="height: 150px; object-fit: cover;">
                     {% endif %}
                     <div class="card-body">
-                        <h5 class="card-title">{{ duyuru.baslik }}</h5>
-                        <p class="card-text">{{ duyuru.ozet|truncatewords:20 }}</p>
-                        <div class="news-date">
-                            <i class="bi bi-calendar"></i> {{ duyuru.yayin_tarihi|date:"d F Y" }}
+                        <h5 class="card-title-compact">{{ duyuru.baslik }}</h5>
+                        <p class="card-text-compact">{{ duyuru.ozet|truncatewords:15 }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                            <div class="news-date-compact">
+                                <i class="bi bi-calendar"></i> {{ duyuru.yayin_tarihi|date:"d F Y" }}
+                            </div>
+                            <a href="{% url 'duyuru_detay' duyuru.slug %}" class="btn btn-warning btn-sm">
+                                <i class="bi bi-arrow-right"></i> Devamını Oku
+                            </a>
                         </div>
-                        <a href="{% url 'duyuru_detay' duyuru.slug %}" class="btn btn-warning btn-sm">
-                            <i class="bi bi-arrow-right"></i> Devamını Oku
-                        </a>
                     </div>
                 </div>
                 {% endfor %}

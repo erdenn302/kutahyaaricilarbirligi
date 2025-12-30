@@ -79,7 +79,7 @@ body {
 /* Hero Section */
 .hero-section {
     background: linear-gradient(135deg, #fff9e6 0%, #ffffff 50%, #f8f9fa 100%);
-    padding: 80px 0;
+    padding: 60px 0;
     position: relative;
     overflow: hidden;
 }
@@ -101,24 +101,24 @@ body {
 }
 
 .hero-title {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     font-weight: 700;
     color: #1a1a1a;
-    margin-bottom: 1.5rem;
-    line-height: 1.2;
+    margin-bottom: 1.2rem;
+    line-height: 1.3;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
 }
 
 .hero-subtitle {
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     color: #555;
-    margin-bottom: 2rem;
-    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
 }
 
 /* İstatistik Kartları */
 .stats-section {
-    padding: 80px 0;
+    padding: 60px 0;
     background: #f8f9fa;
     position: relative;
 }
@@ -126,9 +126,9 @@ body {
 .stat-card {
     background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
     border-radius: 15px;
-    padding: 40px 30px;
+    padding: 30px 25px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -159,10 +159,10 @@ body {
 }
 
 .stat-number {
-    font-size: 3.5rem;
+    font-size: 2.8rem;
     font-weight: 700;
     color: #ffc107;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     text-shadow: 2px 2px 4px rgba(255, 193, 7, 0.2);
     display: block;
 }
@@ -308,13 +308,13 @@ body {
 
 /* Section Başlıkları */
 .section-title {
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     font-weight: 700;
     color: #1a1a1a;
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
     text-align: center;
     position: relative;
-    padding-bottom: 20px;
+    padding-bottom: 18px;
 }
 
 .section-title::after {
@@ -365,6 +365,49 @@ body {
     color: #999;
     font-size: 0.9rem;
     margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Kompakt Haber/Duyuru Kartları (Ana Sayfa) */
+.news-card-compact {
+    border-radius: 12px;
+    border: none;
+    box-shadow: 0 3px 15px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    margin-bottom: 15px;
+    background: #fff;
+}
+
+.news-card-compact:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+}
+
+.news-card-compact .card-body {
+    padding: 15px 18px;
+}
+
+.news-card-compact .card-title-compact {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    line-height: 1.4;
+}
+
+.news-card-compact .card-text-compact {
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.news-date-compact {
+    color: #999;
+    font-size: 0.85rem;
     display: flex;
     align-items: center;
     gap: 5px;
