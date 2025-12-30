@@ -406,6 +406,13 @@ class SiteAyarlari(models.Model):
         verbose_name="LinkedIn URL",
         help_text="LinkedIn sayfası linki (isteğe bağlı)"
     )
+    google_verification_code = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True,
+        verbose_name="Google Search Console Verification Code",
+        help_text="Google Search Console'dan alınan verification code (meta tag içeriği)"
+    )
     guncelleme_tarihi = models.DateTimeField(
         auto_now=True, 
         verbose_name="Son Güncelleme",
