@@ -6,6 +6,7 @@ After=network.target
 User=www-data
 Group=www-data
 WorkingDirectory=/var/www/kutahyaaricilarbirligi
+EnvironmentFile=/var/www/kutahyaaricilarbirligi/.env
 ExecStart=/var/www/kutahyaaricilarbirligi/venv/bin/gunicorn \
     --access-logfile - \
     --workers 3 \
